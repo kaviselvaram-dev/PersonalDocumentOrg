@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard | Flyvia Docs</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
+  <style>
+    body {
+      transition: background 0.4s, color 0.4s;
+      display: flex;
+      margin: 0;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 230px;
+      height: 100vh;
+      background: white;
+      position: fixed;
+      left: 0;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+    .sidebar h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #2b2bff;
+    }
+    .nav-item {
+      padding: 0.7rem;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      color: #333;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+    }
+    .nav-item:hover, .nav-item.active {
+      background: #e8edff;
+      color: #2b2bff;
+    }
+    .logout {
+      margin-top: auto;
+      color: red;
+    }
+
+    /* Main content */
+    .main-content {
+      margin-left: 250px;
+      flex-grow: 1;
+      padding: 2rem;
+    }
+
+    /* Cards Grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .doc-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .doc-card:hover {
+      transform: translateY(-5px);
+    }
+    .doc-icon {
+      font-size: 2rem;
+    }
+    .doc-actions a {
+      margin-right: 10px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* 🌙 Dark Mode */
+    body.dark {
+      background: #121212;
+      color: #e6e6e6;
+    }
+    .sidebar.dark {
+      background: #1b1b1b;
+      color: #eee;
+    }
+    .nav-item.dark:hover, .nav-item.active.dark {
+      background: #2b2bff33;
+    }
+    .doc-card.dark {
+      background: #1e1e1e;
+      color: #eee;
+    }
+    #qrModalContent.dark {
+      background: #222;
+      color: #eee;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.3rem;
+      margin-top: 1rem;
+    }
+
+    /* QR Modal */
+    #qrModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    #qrModalContent {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ✅ Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <h2>📁 Flyvia Docs</h2>
+    <a class="nav-item" href="{{ url_for('home_page') }}">🏠 Home</a>
+    <a class="nav-item" href="{{ url_for('documents_page') }}">📄 My Documents</a>
+    <a class="nav-item" href="{{ url_for('expiring_page') }}">⏰ Expiring Soon</a>
+    <a class="nav-item" href="{{ url_for('settings_page') }}">⚙️ Settings</a>
+    <a class="nav-item logout" href="{{ url_for('logout') }}">🚪 Logout</a>
+    <button class="theme-toggle" id="theme-toggle">🌙</button>
+  </aside>
+
+  <main class="main-content">
+    <h3 id="welcome-text">Welcome, {{ user.email }}</h3>
+
+    <!-- ✅ Upload form (always visible on Home) -->
+    <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data" class="upload-form">
+      <input type="file" name="file" required>
+      <input type="text" name="category" placeholder="Category (optional)">
+      <input type="date" name="expiry_date" placeholder="Expiry Date">
+      <input type="datetime-local" name="reminder_at" placeholder="Reminder Time">
+      <button type="submit">Upload Document</button>
+    </form>
+
+    <!-- 🧩 Tools -->
+    <div class="tool-buttons">
+      <button id="mobileModeBtn">📱 Mobile Companion</button>
+      <button id="exportSummaryBtn">🧾 Export Summary</button>
+    </div>
+
+    {% if docs %}
+      <h4 id="docs-header">Your Uploaded Documents:</h4>
+      <div class="card-grid">
+        {% for doc in docs %}
+        <div class="doc-card">
+          <div class="doc-icon">
+            {% if 'ID' in doc.category or 'Passport' in doc.category or 'Aadhaar' in doc.category %}
+              🪪
+            {% elif 'Bank' in doc.category %}
+              🏦
+            {% elif 'Certificate' in doc.category %}
+              📜
+            {% else %}
+              📄
+            {% endif %}
+          </div>
+          <h4>{{ doc.filename }}</h4>
+          <p>📌 {{ doc.category or "General" }}</p>
+          <p>⏳ {{ doc.expiry_date or "N/A" }}</p>
+          <div class="doc-actions">
+            <a href="{{ url_for('download', doc_id=doc.id) }}">⬇️ Download</a>
+            <a href="{{ url_for('delete_doc', doc_id=doc.id) }}" style="color:red;">🗑 Delete</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    {% elif docs is not none %}
+      <p>No documents uploaded yet.</p>
+    {% endif %}
+  </main>
+
+  <!-- QR Modal -->
+  <div id="qrModal">
+    <div id="qrModalContent">
+      <h3>📲 Scan this QR to open on mobile</h3>
+      <canvas id="qrCanvas"></canvas><br>
+      <button onclick="closeQR()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // ✅ Highlight active sidebar link
+    const currentPath = window.location.pathname;
+    document.querySelectorAll('.nav-item').forEach(link => {
+      if (link.href && link.href.includes(currentPath)) link.classList.add('active');
+    });
+
+    // 🌙 DARK MODE
+    const toggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+    const sidebar = document.getElementById('sidebar');
+    const qrModalContent = document.getElementById('qrModalContent');
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme === 'dark') enableDarkMode();
+
+    toggleBtn.addEventListener('click', () => {
+      body.classList.contains('dark') ? disableDarkMode() : enableDarkMode();
+    });
+
+    function enableDarkMode() {
+      body.classList.add('dark');
+      sidebar.classList.add('dark');
+      qrModalContent.classList.add('dark');
+      document.querySelectorAll('.doc-card').forEach(el => el.classList.add('dark'));
+      toggleBtn.textContent = '☀️';
+      localStorage.setItem('theme', 'dark');
+    }
+
+    function disableDarkMode() {
+      body.classList.remove('dark');
+      sidebar.classList.remove('dark');
+      qrModalContent.classList.remove('dark');
+      document.querySelectorAll('.doc-card').forEach(el => el.classList.remove('dark'));
+      toggleBtn.textContent = '🌙';
+      localStorage.setItem('theme', 'light');
+    }
+
+    // 📱 MOBILE COMPANION (QR)
+    const mobileBtn = document.getElementById('mobileModeBtn');
+    const qrModal = document.getElementById('qrModal');
+    const qrCanvas = document.getElementById('qrCanvas');
+    let qr;
+    mobileBtn.addEventListener('click', () => {
+      qrModal.style.display = 'flex';
+      if (!qr) {
+        qr = new QRious({
+          element: qrCanvas,
+          value: window.location.origin + "/dashboard",
+          size: 200
+        });
+      }
+    });
+    function closeQR() { qrModal.style.display = 'none'; }
+
+    // 🧾 EXPORT SUMMARY
+    document.getElementById('exportSummaryBtn').addEventListener('click', () => {
+      const cards = document.querySelectorAll('.doc-card');
+      if (!cards.length) return alert('No documents to export!');
+      let summary = "📁 Flyvia Docs — Document Summary\n\nFilename | Category | Expiry Date\n-----------------------------------\n";
+      cards.forEach(card => {
+        const lines = card.innerText.split("\n");
+        summary += `${lines[1]} | ${lines[2]} | ${lines[3]}\n`;
+      });
+      const blob = new Blob([summary], { type: "text/plain" });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = "FlyviaDocs_Summary.txt";
+      link.click();
+    });
+  </script>
+</body>
+</html>
+

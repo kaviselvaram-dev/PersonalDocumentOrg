@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flyvia Docs — Smart Document Storage</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(180deg, #eef4ff 0%, #f8faff 100%);
+      color: #222;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    /* Navbar */
+    nav {
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      padding: 18px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      transition: background 0.5s, color 0.5s;
+    }
+    nav .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #2b2bff;
+    }
+    nav .logo img {
+      width: 28px;
+      height: 28px;
+    }
+    nav .links a {
+      text-decoration: none;
+      color: #333;
+      margin-left: 25px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav .links a:hover {
+      color: #2b2bff;
+    }
+
+    /* Theme Button */
+    .theme-toggle {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      margin-left: 15px;
+      transition: transform 0.3s;
+    }
+    .theme-toggle:hover {
+      transform: rotate(15deg);
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 80px 10%;
+      background: linear-gradient(90deg, #e8f0ff 0%, #f7faff 100%);
+      transition: background 0.5s;
+    }
+    .hero-text {
+      max-width: 500px;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .hero-text h1 {
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: #0b0c4f;
+      line-height: 1.3;
+    }
+    .hero-text p {
+      color: #555;
+      margin: 18px 0 35px;
+      font-size: 1.05rem;
+    }
+    .hero-text a {
+      display: inline-block;
+      background: #2b2bff;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .hero-text a:hover {
+      background: #1a1acb;
+      transform: translateY(-2px);
+    }
+    .hero img {
+      width: 420px;
+      border-radius: 12px;
+      box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Why Section */
+    .why {
+      padding: 70px 10%;
+      text-align: center;
+      background: white;
+      transition: background 0.5s;
+    }
+    .why h2 {
+      font-size: 2rem;
+      color: #0b0c4f;
+      margin-bottom: 45px;
+    }
+    .features {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+    }
+    .feature-card {
+      background: linear-gradient(180deg, #ffffff, #f6f8ff);
+      border-radius: 16px;
+      padding: 35px 25px;
+      width: 290px;
+      text-align: center;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+      transition: 0.3s, background 0.5s, color 0.5s;
+    }
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    }
+    .feature-card img {
+      width: 60px;
+      margin-bottom: 18px;
+    }
+    .feature-card h3 {
+      font-size: 1.2rem;
+      color: #222;
+      margin-bottom: 10px;
+    }
+    .feature-card p {
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    footer {
+      background: #2b2bff;
+      color: white;
+      text-align: center;
+      padding: 18px 0;
+      margin-top: 60px;
+      font-size: 0.9rem;
+      transition: background 0.5s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hero img {
+        margin-top: 40px;
+        width: 300px;
+      }
+    }
+
+    /* 🌙 DARK MODE STYLES */
+    body.dark {
+      background: #111;
+      color: #eee;
+    }
+    nav.dark {
+      background: #1b1b1b;
+    }
+    .hero.dark {
+      background: linear-gradient(90deg, #1b1b1b 0%, #222 100%);
+    }
+    .feature-card.dark {
+      background: #222;
+      color: #ddd;
+    }
+    .why.dark {
+      background: #111;
+    }
+    footer.dark {
+      background: #000;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav id="navbar">
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/4727/4727073.png" alt="logo">
+      Flyvia Docs
+    </div>
+    <div class="links">
+      <a href="{{ url_for('signup_page') }}">Sign Up</a>
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('login_page') }}">Login</a>
+      <button class="theme-toggle" id="theme-toggle">🌙</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-text">
+      <h1>Secure & Smart Document Storage</h1>
+      <p>Organize, protect, and access your important files anytime. Flyvia Docs gives you encrypted storage, smart reminders, and a seamless cloud experience — all in one place.</p>
+      <a href="{{ url_for('signup_page') }}">Get Started</a>
+    </div>
+    <img src="{{ url_for('static', filename='images/document_storage.png') }}" alt="Document Storage Illustration">
+  </section>
+
+  <!-- Why Section -->
+  <section class="why" id="why">
+    <h2>Why Flyvia Docs?</h2>
+    <div class="features">
+      <div class="feature-card">
+        <img src="{{ url_for('static', filename='images/encryption_icon.png') }}" alt="Encryption Icon">
+        <h3>🔒 Secure Encryption</h3>
+        <p>Your files are encrypted with AES before being stored, ensuring complete privacy and protection.</p>
+      </div>
+      <div class="feature-card">
+        <img src="{{ url_for('static', filename='images/reminder.png') }}" alt="Reminders Icon">
+        <h3>⏰ Smart Reminders</h3>
+        <p>Receive timely email reminders before your important documents expire — never miss a renewal again.</p>
+      </div>
+      <div class="feature-card">
+        <img src="{{ url_for('static', filename='images/upload.png') }}" alt="Upload Icon">
+        <h3>☁️ Easy Upload</h3>
+        <p>Quickly upload, organize, and access your documents from anywhere with just a few clicks.</p>
+      </div>
+      <div class="feature-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176366.png" alt="Share Icon">
+        <h3>🤝 Secure Sharing</h3>
+        <p>Share documents safely with others using encrypted sharing — full control, zero risk.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer">
+    © 2025 Flyvia Docs — Smart & Secure File Management Platform
+  </footer>
+
+  <script>
+    // 🌙 DARK MODE TOGGLE
+    const toggleBtn = document.getElementById('theme-toggle');
+    const sections = ['navbar', 'hero', 'why', 'footer'];
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme === 'dark') enableDarkMode();
+
+    toggleBtn.addEventListener('click', () => {
+      if (document.body.classList.contains('dark')) {
+        disableDarkMode();
+      } else {
+        enableDarkMode();
+      }
+    });
+
+    function enableDarkMode() {
+      document.body.classList.add('dark');
+      sections.forEach(id => document.getElementById(id)?.classList.add('dark'));
+      document.querySelectorAll('.feature-card').forEach(el => el.classList.add('dark'));
+      toggleBtn.textContent = '☀️';
+      localStorage.setItem('theme', 'dark');
+    }
+
+    function disableDarkMode() {
+      document.body.classList.remove('dark');
+      sections.forEach(id => document.getElementById(id)?.classList.remove('dark'));
+      document.querySelectorAll('.feature-card').forEach(el => el.classList.remove('dark'));
+      toggleBtn.textContent = '🌙';
+      localStorage.setItem('theme', 'light');
+    }
+  </script>
+</body>
+</html>

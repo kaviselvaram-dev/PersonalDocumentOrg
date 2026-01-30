@@ -1,0 +1,391 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background: #f8f9fb;
+    color: #222;
+    transition: background 0.4s, color 0.4s;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 4rem;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.nav-links a {
+    margin-left: 1rem;
+    color: #4a4a4a;
+    text-decoration: none;
+    font-weight: 500;
+}
+.nav-links a:hover {
+    color: #0078ff;
+}
+
+/* Hero */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem;
+    background: linear-gradient(135deg, #eaf2ff 0%, #fef6ff 100%);
+}
+.hero-text {
+    max-width: 50%;
+}
+.hero-text h1 {
+    font-size: 2.5rem;
+    color: #222;
+}
+.hero-text p {
+    margin: 1rem 0 2rem;
+    line-height: 1.6;
+    color: #444;
+}
+.hero-image img {
+    width: 420px;
+}
+.btn-primary {
+    background: #0078ff;
+    color: white;
+    padding: 0.8rem 1.6rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+}
+.btn-primary:hover {
+    background: #005fcc;
+}
+
+/* Features */
+.features {
+    padding: 3rem 4rem;
+    text-align: center;
+}
+.features-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+.feature-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    width: 280px;
+    padding: 1.5rem;
+}
+.feature-card img {
+    width: 50px;
+}
+.feature-card h3 {
+    margin: 1rem 0 0.5rem;
+    color: #333;
+}
+.feature-card p {
+    color: #666;
+}
+
+/* Guide */
+.guide {
+    background: #eef6ff;
+    padding: 3rem 4rem;
+    text-align: center;
+}
+.steps {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+.step {
+    background: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    width: 200px;
+}
+.step-number {
+    background: #0078ff;
+    color: white;
+    font-weight: 600;
+    display: inline-block;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+}
+.btn-secondary {
+    background: #ff7a59;
+    color: white;
+    padding: 0.8rem 1.6rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+}
+.btn-secondary:hover {
+    background: #ff5a3c;
+}
+
+/* Footer */
+footer {
+    background: #111;
+    color: #aaa;
+    text-align: center;
+    padding: 1.5rem;
+}
+.auth-container {
+  background: white;
+  width: 350px;
+  margin: 8vh auto;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+.auth-container input {
+  display: block;
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+.auth-container button {
+  background: #0078ff;
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.auth-container button:hover {
+  background: #005fcc;
+}
+
+.dashboard {
+    padding: 2rem 4rem;
+}
+.upload-form {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+.upload-form input, .upload-form button {
+    padding: 0.5rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 0.8rem;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+th {
+    background: #f4f4f4;
+}
+a {
+    text-decoration: none;
+}
+
+/* 🌙 DARK MODE THEME */
+body.dark {
+  background: #121212;
+  color: #eee;
+}
+nav.dark, .navbar.dark {
+  background: #1f1f1f;
+  box-shadow: none;
+}
+.hero.dark, .why.dark, footer.dark, .auth-container.dark, .dashboard.dark, table.dark {
+  background: #1e1e1e;
+  color: #ddd;
+}
+.feature-card.dark {
+  background: #2a2a2a;
+  color: #eee;
+  box-shadow: none;
+}
+input.dark, button.dark, select.dark {
+  background: #2a2a2a;
+  color: #f1f1f1;
+  border: 1px solid #444;
+}
+.theme-btn {
+  border: none;
+  background: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: 15px;
+  transition: transform 0.2s;
+}
+.theme-btn:hover {
+  transform: rotate(15deg);
+}
+
+/* =============================== */
+/* 📱 MOBILE COMPANION + EXPORT UI */
+/* =============================== */
+.tool-buttons {
+  margin: 1rem 0;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.tool-buttons button {
+  background: #2b2bff;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+.tool-buttons button:hover {
+  background: #1a1acb;
+}
+
+/* QR Modal */
+#qrModal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+#qrModalContent {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  text-align: center;
+}
+#qrModalContent.dark {
+  background: #222;
+  color: #eee;
+}
+#qrModalContent canvas {
+  margin: 1rem 0;
+}
+
+/* =============================== */
+/* 🎨 MODERN DASHBOARD UI ADDITIONS */
+/* =============================== */
+
+/* Sidebar */
+.sidebar {
+  width: 230px;
+  height: 100vh;
+  background: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  z-index: 10;
+  transition: background 0.3s, color 0.3s;
+}
+.sidebar h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #2b2bff;
+}
+.nav-item {
+  padding: 0.7rem;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  color: #333;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  transition: background 0.3s, color 0.3s;
+}
+.nav-item:hover, .nav-item.active {
+  background: #e8edff;
+  color: #2b2bff;
+}
+.logout {
+  margin-top: auto;
+  color: red;
+}
+
+/* Dashboard main content */
+.main-content {
+  margin-left: 250px;
+  flex-grow: 1;
+  padding: 2rem;
+}
+
+/* Document Cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.doc-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s, background 0.3s, color 0.3s;
+}
+.doc-card:hover {
+  transform: translateY(-5px);
+}
+.doc-icon {
+  font-size: 2rem;
+}
+.doc-actions a {
+  margin-right: 10px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Dark mode for sidebar + cards */
+.sidebar.dark {
+  background: #1b1b1b;
+  color: #eee;
+}
+.nav-item.dark:hover, .nav-item.active.dark {
+  background: #2b2bff33;
+}
+.doc-card.dark {
+  background: #1e1e1e;
+  color: #eee;
+}
+
+/* 🔹 Active sidebar link indicator */
+.nav-item.active::before {
+  content: '';
+  width: 4px;
+  height: 100%;
+  background: #2b2bff;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 0 3px 3px 0;
+}
